@@ -32,6 +32,7 @@ public class MainLinkedList {
         printPlaylist();
 
         play();
+
     }
 
     private static void printPlaylist() {
@@ -57,6 +58,7 @@ public class MainLinkedList {
         while (!salir) {
             if (imprimirMenu) {
                 printMenu();
+                System.out.println("Ingresa una opción: ");
             }
             imprimirMenu = true;
 
@@ -112,6 +114,7 @@ public class MainLinkedList {
                 default:
                     System.out.println("Opción no válida. Inténtalo de nuevo.");
                     break;
+
             }
         }
         scanner.close();
