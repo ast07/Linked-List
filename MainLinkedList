@@ -10,7 +10,6 @@ public class MainLinkedList {
     private static boolean reproduccionHaciaAdelante = true;
 
     public static void main(String[] args) {
-        // Agregar álbumes
         Album album1 = new Album("Esto es Estopa", "Estopa");
         album1.addSong("Como Camarón", 3.40);
         album1.addSong("Naturaleza", 4.03);
