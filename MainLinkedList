@@ -10,11 +10,11 @@ public class MainLinkedList {
     private static boolean reproduccionHaciaAdelante = true;
 
     public static void main(String[] args) {
-        Album album1 = new Album("Esto es Estopa", "Estopa");
-        album1.addSong("Como Camarón", 3.40);
-        album1.addSong("Naturaleza", 4.03);
-        album1.addSong("Ahora", 3.54);
-        album1.addSong("Rumba triste", 3.18);
+        Album album1 = new Album("Ferxxocalipsis", "Feid");
+        album1.addSong("Alakran", 1.31);
+        album1.addSong("50 palos", 2.47 );
+        album1.addSong("Luna", 3.17);
+        album1.addSong("Classy 101", 3.16);
         albums.add(album1);
 
         Album album2 = new Album("Saliendo del planeta", "Saiko");
@@ -24,8 +24,8 @@ public class MainLinkedList {
         album2.addSong("Antidepresivos", 2.46);
         albums.add(album2);
 
-        album1.addToPlayList("Esto es Estopa", playlist);
-        album1.addToPlayList(3, playlist);
+        album1.addToPlayList("Alakran", playlist);
+        album1.addToPlayList("Luna", playlist);
         album2.addToPlayList("Polaris", playlist);
         album2.addToPlayList("Carnet", playlist);
 
