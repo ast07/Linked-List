@@ -1,0 +1,144 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.Scanner;
+
+public class MainLinkedList {
+    private static ArrayList<Album> albums = new ArrayList<>();
+    private static LinkedList<Cancion> playlist = new LinkedList<>();
+    private static ListIterator<Cancion> playlistIterator;
+    private static boolean reproduccionHaciaAdelante = true;
+
+    public static void main(String[] args) {
+        // Agregar álbumes
+        Album album1 = new Album("Esto es Estopa", "Estopa");
+        album1.addSong("Como Camarón", 3.40);
+        album1.addSong("Naturaleza", 4.03);
+        album1.addSong("Ahora", 3.54);
+        album1.addSong("Rumba triste", 3.18);
+        albums.add(album1);
+
+        Album album2 = new Album("Saliendo del planeta", "Saiko");
+        album2.addSong("Polaris", 5.15);
+        album2.addSong("Cosas que no te dije", 3.45);
+        album2.addSong("Carnet", 3.46);
+        album2.addSong("Antidepresivos", 2.46);
+        albums.add(album2);
+
+        album1.addToPlayList("Esto es Estopa", playlist);
+        album1.addToPlayList(3, playlist);
+        album2.addToPlayList("Polaris", playlist);
+        album2.addToPlayList("Carnet", playlist);
+
+        printPlaylist();
+
+        play();
+    }
+
+    private static void printPlaylist() {
+        System.out.println("Lista de Reproducción:");
+        for (Cancion cancion : playlist) {
+            System.out.println(cancion);
+        }
+    }
+
+    private static void play() {
+        Scanner scanner = new Scanner(System.in);
+        boolean salir = false;
+        boolean imprimirMenu = true;
+
+        if (playlist.isEmpty()) {
+            System.out.println("No hay canciones en la lista de reproducción");
+            return;
+        }
+
+        playlistIterator = playlist.listIterator();
+        System.out.println("Reproduciendo: " + playlistIterator.next());
+
+        while (!salir) {
+            if (imprimirMenu) {
+                printMenu();
+            }
+            imprimirMenu = true;
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 0:
+                    System.out.println("Saliendo de la lista de reproducción.");
+                    salir = true;
+                    break;
+                case 1:
+                    if (!reproduccionHaciaAdelante) {
+                        if (playlistIterator.hasNext()) {
+                            playlistIterator.next();
+                            reproduccionHaciaAdelante = true;
+                        }
+                    }
+                    if (playlistIterator.hasNext()) {
+                        System.out.println("Reproduciendo siguiente canción: " + playlistIterator.next());
+                    } else {
+                        System.out.println("Fin de la lista de reproducción.");
+                        reproduccionHaciaAdelante = false;
+                        imprimirMenu = false;
+                    }
+                    break;
+                case 2:
+                    if (reproduccionHaciaAdelante) {
+                        if (playlistIterator.hasPrevious()) {
+                            playlistIterator.previous();
+                            reproduccionHaciaAdelante = false;
+                        }
+                    }
+                    if (playlistIterator.hasPrevious()) {
+                        System.out.println("Reproduciendo canción anterior: " + playlistIterator.previous());
+                    } else {
+                        System.out.println("Inicio de la lista de reproducción");
+                        reproduccionHaciaAdelante = true;
+                        imprimirMenu = false;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Reproduciendo canción actual " + playlistIterator.next());
+                    break;
+                case 4:
+                    printPlaylist();
+                    imprimirMenu = false;
+                    break;
+                case 5:
+                    imprimirMenu = true;
+                    printMenu();
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+                    break;
+            }
+        }
+        scanner.close();
+    }
+
+    private static void printMenu() {
+        System.out.println("\nMenú:");
+        System.out.println("0 - Salir de la lista de reproducción");
+        System.out.println("1 - Reproducir siguiente canción en la lista");
+        System.out.println("2 - Reproducir la canción previa de la lista");
+        System.out.println("3 - Repetir la canción actual");
+        System.out.println("4 - Imprimir la lista de canciones en la playlist");
+        System.out.println("5 - Volver a imprimir el menú");
+    }
+
+    private static void eliminarCancionActual() {
+        if (playlistIterator.hasNext()) {
+            playlistIterator.next();
+            playlistIterator.remove();
+            System.out.println("Canción eliminada de la lista de reproducción");
+        } else if (playlistIterator.hasPrevious()) {
+            playlistIterator.previous();
+            playlistIterator.remove();
+            System.out.println("Canción eliminada de la lista de reproducción");
+        } else {
+            System.out.println("No hay ninguna canción para eliminar");
+        }
+    }
+}
